@@ -1,0 +1,7 @@
+{
+  "//": "設定しなければならない項目に関してはGAS上でも可能",
+  "timeZone": "Asia/Tokyo",
+  "dependencies": {},
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}
