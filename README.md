@@ -88,7 +88,7 @@ DiscordのWebhookを作成するには**サーバ管理人**か**サーバ管理
 
 ### Raid Mission Times
 
-[Issue](###Issue)の表を参照。
+[Issue](https://github.com/aonekoaoi/BPRaidMissionsReminder?tab=readme-ov-file#issue)の表を参照。
 
 ## Development Environment
 
