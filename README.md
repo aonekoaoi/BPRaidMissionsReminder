@@ -2,13 +2,21 @@
 
 ## About Me
 
+<details>
+
 こんにちは、青猫あおいと申します。
 
 C, Java, Pythonを趣味程度で嗜んでいます。
 
+</details>
+
 ## Overview
 
+<details>
+
 Google Apps Script（以下、GAS）を利用してDiscord内のサーバ（ギルド）のWebhookからブループロトコルのレイドミッションをリマインドするソースコード。
+
+</details>
 
 ## Description
 
@@ -94,7 +102,7 @@ DiscordのWebhookを作成するには**サーバ管理人**か**サーバ管理
 
 Microsoft Windows 10 Pro version 22H2 (OS build 19045.3208) 64-bit
 
-Visual Studio Code version 1.81.1 64-bit
+Visual Studio Code version 1.83.0 64-bit
 
 Google Apps Script
 
