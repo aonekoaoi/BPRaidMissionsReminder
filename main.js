@@ -12,7 +12,7 @@
 //
 // Development Environment
 // Microsoft Windows 10 Pro version 22H2 (OS build 19045.3208) 64-bit
-// Visual Studio Code version 1.81.1 64-bit
+// Visual Studio Code version 1.83.0 64-bit
 // Google Apps Script
 //
 // Contact Us
