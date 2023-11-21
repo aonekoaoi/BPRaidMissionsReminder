@@ -6,7 +6,7 @@
 // Link: https://github.com/aonekoaoi/BPRaidMissionsReminder
 //
 // 2. Description
-// See the README.md on GitHub.
+// See README.md on GitHub.
 // GitHub の README.md を参照してください。
 // Link: https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/README.md
 //
