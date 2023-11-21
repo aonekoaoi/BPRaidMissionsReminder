@@ -1,119 +1,114 @@
-# BLUE PROTOCOL Raid Missions Reminder
+<!--
+  1. 過去に作成した README.md を基に作成する
+  2. 書き方の統一
+  3. カラーコードは小文字英数字
+  4. 英語の文章内に短縮形を使用しない
+  5. 日本語の文章内に英単語を挿入するときは、半角スペースを英単語の前後に挿入
+  6. 英語および日本語の語順のならびを意識する。しかし使用頻度の高いものおよび、流れがおかしくなるものはこの通りではない
+-->
 
-## About Me
+<p align="center">
+  <h1 align="center">BLUE PROTOCOL Raid Missions Reminder</h1>
+  <p align="center">Google Apps Script を通して Discord 内のサーバに BLUE PROTOCOL のレイドミッションをリマインドするソースコード。</p>
+</p>
+
+## 1. Description
+
+### 1. 1. Sign Up for an Account
+
+以下の2つのアカウントを作成してください。
+
+1. Google アカウントの [作成](https://accounts.google.com/signup/v2/createaccount?theme=glif&flowName=GlifWebSignIn&flowEntry=SignUp)
+
+2. Discord アカウントの [作成](https://discord.com/register)
 
 <details>
+  <summary>Google アカウントは必要？</summary>
 
-こんにちは、青猫あおいと申します。
+Google Apps Script（以下、GAS）を通して Discord 内のサーバのチャンネルにお知らせするため必要となります。
 
-C, Java, Pythonを趣味程度で嗜んでいます。
+しかし JavaScript をデプロイできる環境をお持ちの方は Google アカウントを必要としません。
+
+以降の説明では Google アカウントを作成済みの想定で進みます。
 
 </details>
 
-## Overview
-
 <details>
+  <summary>Discord アカウントは必要？</summary>
 
-Google Apps Script（以下、GAS）を利用してDiscord内のサーバ（ギルド）のWebhookからブループロトコルのレイドミッションをリマインドするソースコード。
+Discord 内のサーバのチャンネル設定にある **Webhook** を使用してお知らせを受け取るため必要となります。
+
+しかし Webhook の受け取りを受け入れられるアプリ等をお持ちの方は Discord アカウントを必要としません。
+
+以降の説明では Discord アカウントを作成済みの想定で進みます。
 
 </details>
 
-## Description
+### 1. 2. Set Up GAS
 
-### STEP1 Sign up
+1. [main.js](https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/main.js) の中身をフルコピーして GAS に [ログイン](https://www.google.com/script/start/) してください。
 
-Googleアカウントを持っている場合は作成不要。
+2. **Start Scripting** と書かれているところをクリックしてください。
 
-Googleアカウントの[作成](https://accounts.google.com/signup/v2/createaccount?theme=glif&flowName=GlifWebSignIn&flowEntry=SignUp)。
+3. 右上のアイコンが自分の使用したいアカウントかを確認後、左上の**新しいプロジェクト**をクリックしてください。
 
-> Googleアカウントの作成はGASを利用するため必要。
+4. 画面が切り替わり以下のようなソースコードをすべて選択してペーストしてください。
 
-Discordアカウントを持っている場合は作成不要。
-
-Discordアカウントの[作成](https://discord.com/register)。
-
-> Discordアカウントの作成はDiscordのWebhookを利用するため必要。
->> DiscordのWebhookを利用**しなければ**Discordアカウントの作成は不要。
-
-### STEP2 Setting up GAS
-
-[main.js](https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/main.js)の中身をフルコピーしてGASに[ログイン](https://script.google.com/u/0/home)。
-
-左上の**新しいプロジェクト**から*無題のプロジェクト*を作成。
-
-```js
+```JavaScript
 function myFunction() {
 
 }
 ```
 
-以上のようなソースコードをすべて選択して`main.js`の中身をペースト。
+5. main.js の中身に置換し終えたら、左の歯車アイコンから**タイムゾーン**をクリックして **(GMT+09:00) 日本標準時 - 東京**に設定してください。
 
-左の歯車アイコン（以下、プロジェクトの設定）から**タイムゾーン**内の`(GMT+09:00) 日本標準時 - 東京`をクリック。
+6. 任意の名前に設定してプロジェクトを保存してください。**この段階ではまだ完成していません**。
 
-> プロジェクトの設定をしなくとも動作すると思うが念のため設定。
+### 1. 3. Set Up Discord
 
-任意の名前に変更してプロジェクトを保存。
+1. Discord 内のサーバのチャンネル設定にある Webhook を作成するには、**サーバ管理人**、**サーバの管理の権限**または **Webhook** **の管理の権限**が必要となります。
 
-> この段階では完成していない。
+2. 権限を有しているサーバのチャンネルにて Webhook を作成して **Webhook URL** をコピーしてください。
 
-### STEP3 Setting up Discord
+### 1. 4. Run
 
-DiscordのWebhookを作成するには**サーバ管理人**か**サーバ管理の権限**または**Webhookの管理の権限**が必要。
+1. GAS に戻り保存してあるプロジェクトを開いてください。
 
-以上の権限を持っているサーバ（ギルド）内の**チャンネル**にてWebhookを作成してWebhook URLをコピー。
+2. 26行目の `const discord_webhook = "your discord webhook url";` の `your discord webhook url` の部分を選択してペーストしてください。
 
-### STEP4 Setting up GAS
+3. Webhook URL の中身に置換し終えたら、左の時計アイコン（以下、トリガーの設定）から右下の**トリガーを追加**をクリックして**時間ベースのトリガーのタイプを選択**を**分ベースのタイマー**に設定してください。設定後、**時間の間隔を設定**（**分**）を**1分おき**にすることで、できるだけお知らせを正確にできます。
 
-再びGASに戻り保存してあるプロジェクトを開く。
+4. **時間の間隔を設定**（**分**）を保存するとき**承認許可ダイアログ**が表示されます。これを各自で承認許可しなければ実行することができません。
 
-29行目の`const discord_webhook = "your discord webhook url";`の`your discord webhook url`の部分を選択してWebhook URLをペースト。
+5. 実行しているかを確認するには、トリガーの設定の1個下の**実行数**から確認できます。
 
-左の時計アイコン（以下、トリガー）から右下の**トリガーを追加**をクリック。
+### 1. 5. Issue
 
-**時間ベースのトリガーのタイプを選択**内の`分ベースのタイマー`をクリック。
+レイドミッションの仕様変更により動作しなくなることがありますが、この問題に対して対応しません。
 
-**時間の間隔を選択**（**分**）内の`1分おき`をクリックして保存。
+また [1. 6. Raid Mission Times](https://github.com/aonekoaoi/BPRaidMissionsReminder?tab=readme-ov-file#1-6-raid-mission-times) の表よりゲームサーバが閉じた場合でもリマインドしてしまいますが、この問題に対して対応しません。
 
-> GASでは新しいプロジェクトを実行するとき必ず**承認許可ダイアログ**が表示。各自で承認許可。
+### 1. 6. Raid Mission Times
 
-### Issue
+以下の表の**1時間前**、**10分前**および**開始時刻**をリマインドします。
 
-以下の表のためゲーム内サーバが閉じていた場合でもリマインドしてしまう。
-
-そのためゲーム内サーバが閉じた判定を**プログラムする**か実行ファイルを**一度停止する**必要がある。
-
-以下の表の**1時間前**と**10分前**、**開始時刻**をリマインドする。
-
-|Day|Time (UTC+9)|
+|Day|JST (UTC+9)|
 |:---:|:---:|
 |Mon. - Fri.|14:00 - 15:00, 18:00 - 19:00, 22:00 - 23:00|
 |Sat. - Sun.|08:00 - 09:00, 12:00 - 13:00, 16:00 - 17:00, 20:00 - 21:00, 25:00 - 26:00|
 
-### Operation check
+## 2. Development Environment
 
-トリガーアイコンの1個下の**実行数**から動作しているか確認できる。
+- Microsoft Windows 10 Pro version 22H2 (OS build 19045.3208) 64-bit
 
-### Raid Mission Times
+- Visual Studio Code version 1.83.0 64-bit
 
-[Issue](https://github.com/aonekoaoi/BPRaidMissionsReminder?tab=readme-ov-file#issue)の表を参照。
+- Google Apps Script
 
-## Development Environment
-
-Microsoft Windows 10 Pro version 22H2 (OS build 19045.3208) 64-bit
-
-Visual Studio Code version 1.83.0 64-bit
-
-Google Apps Script
-
-## Contact Us
-
-[X (Twitter)](https://twitter.com/aonekoaoi)
-
-## License
+## 3. License
 
 Copyright (c) 2023 aonekoaoi
 
 Licensed under the [MIT](https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/LICENSE.txt) license.
 
-[MIT](https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/LICENSE_ja.txt)ライセンスに基づくライセンス。
+[MIT](https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/LICENSE_ja.txt) ライセンスに基づく配布。
