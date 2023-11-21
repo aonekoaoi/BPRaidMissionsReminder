@@ -1,69 +1,59 @@
 // BLUE PROTOCOL Raid Missions Reminder
 //
-// Distribution
-// The source code is distributed through GitHub.
-// 当ソースコードはGitHubを通じて配布されている。
-// GitHub: https://github.com/aonekoaoi/BPRaidMissionsReminder
+// 1. Distribution
+// This source code is distributed through GitHub.
+// 当ソースコードは GitHub を通して配布されています。
+// Link: https://github.com/aonekoaoi/BPRaidMissionsReminder
 //
-// Description
-// See README.md at GitHub.
-// GitHubのREADME.mdを参照してください。
-// GitHub: https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/README.md
+// 2. Description
+// See the README.md on GitHub.
+// GitHub の README.md を参照してください。
+// Link: https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/README.md
 //
-// Development Environment
-// Microsoft Windows 10 Pro version 22H2 (OS build 19045.3208) 64-bit
-// Visual Studio Code version 1.83.0 64-bit
-// Google Apps Script
+// 3. Development Environment
+// - Microsoft Windows 10 Pro version 22H2 (OS build 19045.3208) 64-bit
+// - Visual Studio Code version 1.83.0 64-bit
+// - Google Apps Script
 //
-// Contact Us
-// X (Twitter): https://twitter.com/aonekoaoi
-//
-// License
+// 4. License
 // Copyright (c) 2023 aonekoaoi
 // Licensed under the MIT license.
-// MiTライセンスに基づくライセンス。
-// en: https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/LICENSE.txt
-// ja: https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/LICENSE_ja.txt
+// MIT ライセンスに基づく配布。
+// Link(en): https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/LICENSE.txt
+// Link(ja): https://github.com/aonekoaoi/BPRaidMissionsReminder/blob/main/LICENSE_ja.txt
 
-// DiscordのWebhook URLを代入
+// Discord の Webhook URL を入力
 const discord_webhook = "your discord webhook url";
 
-// 曜日の取得
 var week_data = new Date();
-week = week_data.getDay();
+week = week_data.getDay(); // 曜日の取得
 
-// 時間の取得
 var hour = new Date();
-hour = Utilities.formatDate(hour, "Asia/Tokyo", "HH");
+hour = Utilities.formatDate(hour, "Asia/Tokyo", "HH"); // 時間の取得
 
-// 分の取得
 var min = new Date();
-min = Utilities.formatDate(min, "Asia/Tokyo", "mm");
+min = Utilities.formatDate(min, "Asia/Tokyo", "mm"); // 分の取得
 
-// 実行する関数
+// 投稿内容の処理
 function time_fun() {
-  // タイトルと説明の判定
+  // タイトル、説明および色の判定
   if (hour == 01 || hour == 08 || hour == 12 || hour == 14 || hour == 16 || hour == 18 || hour == 20 || hour == 22) {
     var title = "レイドミッション開始";
     var description = "レイドミッション終了予定時刻1時間後";
-    var color = parseInt("00FF00", 16); // 緑色
+    var color = parseInt("00FF00", 16); // 緑
   } else if (min == 00) {
     var title = "レイドミッション開始1時間前";
     var description = "";
-    var color = parseInt("0000FF", 16); // 青色
+    var color = parseInt("0000FF", 16); // 青
   } else if (min == 50) {
     var title = "レイドミッション開始10分前";
     var description = "";
-    var color = parseInt("FFFF00", 16); // 黄色
-  } else {
-    var title = "エラー";
-    var description = "タイトルと説明の判定に問題が発生";
-    var color = parseInt("FF0000", 16); // 赤色
+    var color = parseInt("FFFF00", 16); // 黄
   }
 
   // フィールドの判定
   if (week == 0 || week == 6) {
-    // 土曜日～日曜日
+    // 土曜日 - 日曜日
     var name1 = "1回目";
     var name2 = "2回目";
     var name3 = "3回目";
@@ -75,7 +65,7 @@ function time_fun() {
     var value4 = "20:00 ~ 21:00";
     var value5 = "25:00 ~ 26:00";
   } else if (week == 1 || week == 2 || week == 3 || week == 4 || week == 5) {
-    // 月曜日～金曜日
+    // 月曜日 - 金曜日
     var name1 = "1回目";
     var name2 = "2回目";
     var name3 = "3回目";
@@ -86,22 +76,9 @@ function time_fun() {
     var value3 = "22:00 ~ 23:00";
     var value4 = "";
     var value5 = "";
-  } else {
-    // システムトラブル
-    var name1 = "N/A";
-    var name2 = "N/A";
-    var name3 = "N/A";
-    var name4 = "";
-    var name5 = "";
-    var value1 = "N/A";
-    var value2 = "N/A";
-    var value3 = "N/A";
-    var value4 = "";
-    var value5 = "";
-    var color = parseInt("FF0000", 16); // 赤色
   }
 
-  // 投稿の設定
+  // エンベッドの設定
   const message = {
     tss: false,
     embeds: [
@@ -138,20 +115,21 @@ function time_fun() {
         ],
         footer: {
           text: "Copyright (c) 2023 aonekoaoi",
-          icon_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/MIT_logo.svg/321px-MIT_logo.svg.png",
         },
       },
     ],
   };
+
+  // メディアタイプの設定
   const param = {
     method: "POST",
     headers: {"Content-type": "application/json"},
     payload: JSON.stringify(message),
   };
 
-  // 投稿の判定
+  // 投稿内容の判定
   if (week == 0 || week == 1) {
-    // 日曜日と月曜日の例外
+    // 日曜日および月曜日の例外
     if (hour == 00 && min == 00) {
       UrlFetchApp.fetch(discord_webhook, param);
       console.log("00:00 SUCCESSFUL");
@@ -164,7 +142,7 @@ function time_fun() {
     }
   }
   if (week == 1 || week == 2 || week == 3 || week == 4 || week == 5) {
-    // 月曜日～金曜日
+    // 月曜日 - 金曜日
     if (hour == 13 && min == 00) {
       UrlFetchApp.fetch(discord_webhook, param);
       console.log("13:00 SUCCESSFUL");
@@ -195,7 +173,7 @@ function time_fun() {
     }
   }
   if (week == 0 || week == 6) {
-    // 土曜日と日曜日
+    // 土曜日および日曜日
     if (hour == 07 && min == 00) {
       UrlFetchApp.fetch(discord_webhook, param);
       console.log("07:00 SUCCESSFUL");
